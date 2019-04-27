@@ -19,11 +19,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<SpriteMask>().enabled = true;
+        collision.GetComponentInChildren<SpriteMask>().enabled = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.GetComponent<SpriteMask>().enabled = false;
+        collision.GetComponentInChildren<SpriteMask>().enabled = false;
     }
 }

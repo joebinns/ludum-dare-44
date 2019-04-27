@@ -6,21 +6,28 @@ using UnityEngine.Tilemaps;
 public class GameManager : MonoBehaviour
 {
     public Tilemap DarkMap;
+    public Tilemap Dark2Map;
     public Tilemap FloorMap;
 
     public Tile DarkTile;
+    public Tile Dark2Tile;
     public GameObject LightTile;
 
     public List<GameObject> LightTiles;
 
     void Start()
     {
-        DarkMap.origin = FloorMap.origin * 2;
-        DarkMap.size = FloorMap.size * 2;
+        DarkMap.origin = Dark2Map.origin = FloorMap.origin * 2;
+        DarkMap.size = Dark2Map.size = FloorMap.size * 2;
 
         foreach(Vector3Int p in DarkMap.cellBounds.allPositionsWithin)
         {
             DarkMap.SetTile(p, DarkTile);
+        }
+
+        foreach (Vector3Int p in Dark2Map.cellBounds.allPositionsWithin)
+        {
+            Dark2Map.SetTile(p, Dark2Tile);
         }
 
         //Get all floor tiles

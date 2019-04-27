@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    public float startDelay;
+
     private void Awake()
     {
         if (instance == null)
@@ -50,7 +52,13 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        playSong(startDelay, "Overcast");
         Play("Overcast");
+    }
+
+    IEnumerator playSong(float delay, string name)
+    {
+        yield return new WaitForSeconds(delay);
     }
 
     void Update()
