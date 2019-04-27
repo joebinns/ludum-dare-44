@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject touching;
 
     void Start()
     {
@@ -14,5 +15,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        collision.GetComponent<SpriteMask>().enabled = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        collision.GetComponent<SpriteMask>().enabled = false;
     }
 }

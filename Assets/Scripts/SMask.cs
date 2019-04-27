@@ -13,24 +13,24 @@ public class SMask : MonoBehaviour
     float timer = 0;
     private bool bigger = true;
 
-    void Update()
-    {
-        timer += Time.deltaTime;
+    //void Update()
+    //{
+    //    timer += Time.deltaTime;
 
-        if(timer > flickTime)
-        {
-            if(bigger)
-            {
-                transform.localScale = new Vector3(transform.localScale.x + addSize, transform.localScale.y + addSize, transform.localScale.z);
-            }
+    //    if(timer > flickTime)
+    //    {
+    //        if(bigger)
+    //        {
+    //            transform.localScale = new Vector3(transform.localScale.x + addSize, transform.localScale.y + addSize, transform.localScale.z);
+    //        }
 
-            else
-            {
-                transform.localScale = new Vector3(transform.localScale.x - addSize, transform.localScale.y - addSize, transform.localScale.z);
-            }
+    //        else
+    //        {
+    //            transform.localScale = new Vector3(transform.localScale.x - addSize, transform.localScale.y - addSize, transform.localScale.z);
+    //        }
 
-            timer = 0;
-            bigger = !bigger;
-        }
-    }
+    //        timer = 0;
+    //        bigger = !bigger;
+    //    }
+    //}
 }

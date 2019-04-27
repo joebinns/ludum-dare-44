@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _inputs = Vector2.zero;
     private Vector2 playerMove = Vector2.zero;
 
-    private float speed = 2f;
+    private float speed = 4f;
 
     void Start()
     {
