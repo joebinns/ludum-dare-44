@@ -6,15 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject touching;
 
+    public SpriteMask playerSpriteMask;
+
+    public Animation anim;
+
     void Start()
     {
-        
+        playerSpriteMask = transform.Find("SMask_Player").GetComponentInChildren<SpriteMask>();
     }
 
 
     void Update()
     {
-        
+        playerSpriteMask.sprite = GetComponent<SpriteRenderer>().sprite;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -8,7 +8,7 @@ public class SMask : MonoBehaviour
     //public float flickTime;
     private float flickTime;
 
-    [Range(0.02f, 0.09f)]
+    [Range(0f, 2f)]
     public float addSize;
 
     float timer = 0;
