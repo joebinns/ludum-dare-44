@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _inputs = Vector2.zero;
 
     private int _latestInput = 0;
+    private int _lastInput = 0;
 
     private Vector2 playerMove = Vector2.zero;
     private float _attack = 0f;
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         //GET BUTTON DOWN
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
-            if (_isAxisInUse == false)
+            if (_isXAxisInUse == false)
             {
                 // Call your event function here.
                 _latestInput = Mathf.RoundToInt(_inputs.x);
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         //GET BUTTON DOWN
         if (Input.GetAxisRaw("Vertical") != 0)
         {
-            if (_isAxisInUse == false)
+            if (_isYAxisInUse == false)
             {
                 // Call your event function here.
                 _latestInput = Mathf.RoundToInt(_inputs.y) * 2;
@@ -104,74 +105,71 @@ public class PlayerMovement : MonoBehaviour
         _body.MovePosition(_body.position + playerMove);
     }
 
-    IEnumerator attackPause(float delay)
+    private void attackLights(int _latestInput, bool what)
+    {
+        for (int i = 0; i < _LightTiles.Count; i++)
+        {
+            if (_latestInput == 1)
+            {
+                if (i > index)
+                {
+                    if (i % gridDimensions.y == index % gridDimensions.y)
+                    {
+                        _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                    }
+                }
+            }
+
+            else if (_latestInput == -1)
+            {
+                if (i < index)
+                {
+                    if (i % gridDimensions.y == index % gridDimensions.y)
+                    {
+                        _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                    }
+                }
+            }
+
+            else if (_latestInput == 2)
+            {
+                if (i > index)
+                {
+                    if ((int)(i / gridDimensions.y) == (int)(index / gridDimensions.y))
+                    {
+                        _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                    }
+                }
+            }
+
+            else if (_latestInput == -2)
+            {
+                if (i < index)
+                {
+                    if ((int)(i / gridDimensions.y) == (int)(index / gridDimensions.y))
+                    {
+                        _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                    }
+                }
+            }
+        }
+    }
+
+    public IEnumerator attackPause(int _lastInput, float delay, bool what)
     {
         yield return new WaitForSeconds(delay);
+        attackLights(_lastInput, false);
     }
 
     private void Attack()
     {
-        _inputs = Vector2.zero;
-        attackPause(2f);
-
         //GET VALUES
         _touching = playerController.touching;
-
         index = _touching.transform.GetSiblingIndex();
 
-        for(int i = 0; i < _LightTiles.Count; i++)
-        {
-            //if (_latestInput == 1)
-            //{
-            //    if (i >= index)
-            //    {
-            //        if (i % gridDimensions.y == index % gridDimensions.y)
-            //        {
-            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
-            //        }
-            //    }
-            //}
+        int _lastInput = _latestInput;
+        attackLights(_lastInput, true);
 
-            //else if (_latestInput == -1)
-            //{
-            //    if (i <= index)
-            //    {
-            //        if (i % gridDimensions.y == index % gridDimensions.y)
-            //        {
-            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
-            //        }
-            //    }
-            //}
-
-            //else if (_latestInput == 2)
-            //{
-            //    if (i >= index)
-            //    {
-            //        if ((i / gridDimensions.y) == (index / gridDimensions.y))
-            //        {
-            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
-            //        }
-            //    }
-            //}
-
-            //else if (_latestInput == -2)
-            //{
-            //    if (i <= index)
-            //    {
-            //        if ((i / gridDimensions.y) == (index / gridDimensions.y))
-            //        {
-            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
-            //        }
-            //    }
-            //}
-
-            if (i >= index)
-            {
-                if ((int)(i / gridDimensions.y) == (int)(index / gridDimensions.y))
-                {
-                    _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
-                }
-            }
-        }
+        StartCoroutine(attackPause(_lastInput, 0.5f, false));
     }
 }

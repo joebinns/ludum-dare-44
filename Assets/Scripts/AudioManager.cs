@@ -52,13 +52,13 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        playSong(startDelay);
-        Play("Overcast");
+        StartCoroutine(playSong(startDelay));
     }
 
     IEnumerator playSong(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Play("Overcast");
     }
 
     void Update()
