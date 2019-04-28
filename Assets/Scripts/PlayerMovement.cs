@@ -7,18 +7,25 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _body;
 
     private Vector2 _inputs = Vector2.zero;
+
+    private int _latestInput = 0;
+
     private Vector2 playerMove = Vector2.zero;
-    private float _attack = 0;
+    private float _attack = 0f;
 
     private float speed = 4f;
 
     private bool _isAxisInUse = false;
+    private bool _isXAxisInUse = false;
+    private bool _isYAxisInUse = false;
 
     private PlayerController playerController;
     private GameObject _touching;
     private List<GameObject> _LightTiles;
 
-    public Vector2 gridDimensions = Vector2.zero;
+    public Vector2Int gridDimensions = Vector2Int.zero;
+
+    public int index;
 
     void Start()
     {
@@ -32,9 +39,45 @@ public class PlayerMovement : MonoBehaviour
     void Update()//GET INPUTS & APPLY 'ONE-TIME' PHYSICS
     {
         //INPUTS
-        _inputs = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0).normalized;
+        _inputs = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized;
 
         _attack = Input.GetAxisRaw("Attack");
+
+        //GET BUTTON DOWN
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            if (_isAxisInUse == false)
+            {
+                // Call your event function here.
+                _latestInput = Mathf.RoundToInt(_inputs.x);
+
+                _isXAxisInUse = true;
+            }
+        }
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            _latestInput = Mathf.RoundToInt(_inputs.y * 2);
+
+            _isXAxisInUse = false;
+        }
+
+        //GET BUTTON DOWN
+        if (Input.GetAxisRaw("Vertical") != 0)
+        {
+            if (_isAxisInUse == false)
+            {
+                // Call your event function here.
+                _latestInput = Mathf.RoundToInt(_inputs.y) * 2;
+
+                _isYAxisInUse = true;
+            }
+        }
+        if (Input.GetAxisRaw("Vertical") == 0)
+        {
+            _latestInput = Mathf.RoundToInt(_inputs.x);
+
+            _isYAxisInUse = false;
+        }
 
 
         //GET BUTTON DOWN
@@ -48,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
                 _isAxisInUse = true;
             }
         }
-
         if (Input.GetAxisRaw("Attack") == 0)
         {
             _isAxisInUse = false;
@@ -62,40 +104,73 @@ public class PlayerMovement : MonoBehaviour
         _body.MovePosition(_body.position + playerMove);
     }
 
+    IEnumerator attackPause(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+    }
+
     private void Attack()
     {
+        _inputs = Vector2.zero;
+        attackPause(2f);
+
         //GET VALUES
         _touching = playerController.touching;
 
-        //Get tiles in latest move direction for attack
-        // index of tile standing on
-        int index = _touching.transform.GetSiblingIndex();
+        index = _touching.transform.GetSiblingIndex();
 
         for(int i = 0; i < _LightTiles.Count; i++)
         {
-            //if (i % 2 == 0)
+            //if (_latestInput == 1)
             //{
-            //    _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
+            //    if (i >= index)
+            //    {
+            //        if (i % gridDimensions.y == index % gridDimensions.y)
+            //        {
+            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
+            //        }
+            //    }
             //}
 
-            //if (index == i )
+            //else if (_latestInput == -1)
             //{
-            //    _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
+            //    if (i <= index)
+            //    {
+            //        if (i % gridDimensions.y == index % gridDimensions.y)
+            //        {
+            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
+            //        }
+            //    }
             //}
 
-            //if ((i > index) && (i % gridDimensions.y == 0))
+            //else if (_latestInput == 2)
             //{
-            //    _LightTiles[i + (int)(i % gridDimensions.y)].GetComponentInChildren<SpriteMask>().enabled = true;
+            //    if (i >= index)
+            //    {
+            //        if ((i / gridDimensions.y) == (index / gridDimensions.y))
+            //        {
+            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
+            //        }
+            //    }
+            //}
+
+            //else if (_latestInput == -2)
+            //{
+            //    if (i <= index)
+            //    {
+            //        if ((i / gridDimensions.y) == (index / gridDimensions.y))
+            //        {
+            //            _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
+            //        }
+            //    }
             //}
 
             if (i >= index)
             {
-                if (i % gridDimensions.y == index % gridDimensions.y)
+                if ((int)(i / gridDimensions.y) == (int)(index / gridDimensions.y))
                 {
                     _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = true;
                 }
-
-
             }
         }
     }

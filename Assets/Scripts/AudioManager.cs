@@ -52,11 +52,11 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        playSong(startDelay, "Overcast");
+        playSong(startDelay);
         Play("Overcast");
     }
 
-    IEnumerator playSong(float delay, string name)
+    IEnumerator playSong(float delay)
     {
         yield return new WaitForSeconds(delay);
     }
