@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 playerMove = Vector2.zero;
     private float _attack = 0f;
 
-    private float speed = 4f;
+    private float speed = 6f;
 
     private bool _isAxisInUse = false;
     private bool _isXAxisInUse = false;
@@ -28,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
 
     public int index;
 
+    //ANIMATIONS
+    public Animator _animator;
+
+    private bool attacking = false;
+
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
@@ -39,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()//GET INPUTS & APPLY 'ONE-TIME' PHYSICS
     {
+        //ANIMATIONS
+        _animator.SetFloat("horizontalSpeed", Mathf.Abs(playerMove.x));
+        _animator.SetFloat("verticalSpeed", Mathf.Abs(playerMove.y));
+
         //INPUTS
         _inputs = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized;
 
@@ -53,6 +62,15 @@ public class PlayerMovement : MonoBehaviour
                 _latestInput = Mathf.RoundToInt(_inputs.x);
 
                 _isXAxisInUse = true;
+            }
+
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else if(Input.GetAxisRaw("Horizontal") > 0)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
         if (Input.GetAxisRaw("Horizontal") == 0)
@@ -100,9 +118,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()//APPLY CONTINUOUS PHYSICS
     {
-        playerMove = (_inputs * speed * Time.fixedDeltaTime);
-
-        _body.MovePosition(_body.position + playerMove);
+        if (!attacking)
+        {
+            playerMove = (_inputs * speed * Time.fixedDeltaTime);
+            _body.MovePosition(_body.position + playerMove);
+        }
     }
 
     private void attackLights(int _latestInput, bool what)
@@ -155,11 +175,26 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void clearLights()
+    {
+        for (int i = 0; i < _LightTiles.Count; i++)
+        {
+            if(i != index)
+            {
+                _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = false;
+            }
+        }
+    }
+
     public IEnumerator attackPause(int _lastInput, float delay, bool what)
     {
         yield return new WaitForSeconds(delay);
-        attackLights(_lastInput, false);
+
+        //attackLights(_lastInput, false);
+        attacking = false;
+        clearLights();
     }
+
 
     private void Attack()
     {
@@ -167,9 +202,13 @@ public class PlayerMovement : MonoBehaviour
         _touching = playerController.touching;
         index = _touching.transform.GetSiblingIndex();
 
-        int _lastInput = _latestInput;
+        _lastInput = _latestInput;
         attackLights(_lastInput, true);
 
-        StartCoroutine(attackPause(_lastInput, 0.5f, false));
+        //animation stuff
+        attacking = true;
+        playerMove = Vector3.zero;
+
+        StartCoroutine(attackPause(_lastInput, 0.3f, false));
     }
 }
