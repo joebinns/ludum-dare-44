@@ -14,6 +14,8 @@ public class SMask : MonoBehaviour
     float timer = 0;
     private bool bigger = true;
 
+    public bool dangerous = false;
+
     private void calculateBeatFreq()
     {
         float bpm = 120f;

@@ -8,10 +8,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _inputs = Vector2.zero;
 
-    private int _latestInput = 0;
+    public int _latestInput = 0;
     private int _lastInput = 0;
 
-    private Vector2 playerMove = Vector2.zero;
+    public Vector2 playerMove = Vector2.zero;
     private float _attack = 0f;
 
     private float speed = 6f;
@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool attacking = false;
 
+    public SMaskSpotlight _spotlight;
+
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
@@ -40,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         _LightTiles = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().LightTiles;
+
+        _spotlight = transform.GetChild(0).GetComponentInChildren<SMaskSpotlight>();
     }
 
     void Update()//GET INPUTS & APPLY 'ONE-TIME' PHYSICS
@@ -105,7 +109,16 @@ public class PlayerMovement : MonoBehaviour
             if (_isAxisInUse == false)
             {
                 // Call your event function here.
-                Attack();
+                if (Mathf.Abs(_spotlight.addSize) <= 0.5f)
+                {
+                    FindObjectOfType<AudioManager>().Play("Shot");
+                    Attack();
+                }
+
+                else
+                {
+                    StartCoroutine("Pause", 0.3f);
+                }
 
                 _isAxisInUse = true;
             }
@@ -125,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void attackLights(int _latestInput, bool what)
     {
         for (int i = 0; i < _LightTiles.Count; i++)
@@ -136,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
                     if (i % gridDimensions.y == index % gridDimensions.y)
                     {
                         _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                        _LightTiles[i].GetComponentInChildren<SMask>().dangerous = what;
                     }
                 }
             }
@@ -147,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
                     if (i % gridDimensions.y == index % gridDimensions.y)
                     {
                         _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                        _LightTiles[i].GetComponentInChildren<SMask>().dangerous = what;
                     }
                 }
             }
@@ -158,6 +174,7 @@ public class PlayerMovement : MonoBehaviour
                     if ((int)(i / gridDimensions.y) == (int)(index / gridDimensions.y))
                     {
                         _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                        _LightTiles[i].GetComponentInChildren<SMask>().dangerous = what;
                     }
                 }
             }
@@ -169,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
                     if ((int)(i / gridDimensions.y) == (int)(index / gridDimensions.y))
                     {
                         _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = what;
+                        _LightTiles[i].GetComponentInChildren<SMask>().dangerous = what;
                     }
                 }
             }
@@ -182,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
             if(i != index)
             {
                 _LightTiles[i].GetComponentInChildren<SpriteMask>().enabled = false;
+                _LightTiles[i].GetComponentInChildren<SMask>().dangerous = false;
             }
         }
     }
@@ -193,6 +212,14 @@ public class PlayerMovement : MonoBehaviour
         //attackLights(_lastInput, false);
         attacking = false;
         clearLights();
+    }
+
+    public IEnumerator Pause(float delay)
+    {
+        attacking = true;
+        playerMove = Vector3.zero;
+        yield return new WaitForSeconds(delay);
+        attacking = false;
     }
 
 
@@ -209,6 +236,6 @@ public class PlayerMovement : MonoBehaviour
         attacking = true;
         playerMove = Vector3.zero;
 
-        StartCoroutine(attackPause(_lastInput, 0.3f, false));
+        StartCoroutine(attackPause(_lastInput, 0.2f, false));
     }
 }

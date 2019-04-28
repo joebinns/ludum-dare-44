@@ -1,25 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class ClonePlayerController : MonoBehaviour
 {
     public GameObject touching;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Tile")
+        if (collision.tag == "Tile")
         {
             touching = collision.gameObject;
             collision.GetComponentInChildren<SpriteMask>().enabled = true;
         }
 
-        else if(collision.tag == "Enemy")
+        else if (collision.tag == "Enemy")
         {
-            Debug.Log("ouch");
-
-            SceneManager.LoadScene("SampleScene");
+            Destroy(this.gameObject);
         }
     }
 
@@ -29,6 +26,11 @@ public class PlayerController : MonoBehaviour
         {
             collision.GetComponentInChildren<SpriteMask>().enabled = true;
         }
+
+        //else if (collision.tag == "Enemy")
+        //{
+        //    Destroy(this.gameObject);
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -38,4 +40,6 @@ public class PlayerController : MonoBehaviour
             collision.GetComponentInChildren<SpriteMask>().enabled = false;
         }
     }
+
+
 }

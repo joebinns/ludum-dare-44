@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class SMaskSpotlight : MonoBehaviour
 {
-    [Range(0f, 2f)]
     public float addSize;
 
-    float timer = 0;
+    float timer = -0.25f;
 
     float flickTime;
 
