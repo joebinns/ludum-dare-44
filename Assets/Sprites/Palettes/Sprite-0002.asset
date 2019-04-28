@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: DarkTile
+  m_Name: Sprite-0002
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: a36ac7ded14ea66468ee4d8f498791c1, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.49019608}
+  m_Sprite: {fileID: 21300000, guid: 68185a3f2f78eb6488a697c70d464409, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
