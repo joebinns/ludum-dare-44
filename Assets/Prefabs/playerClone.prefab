@@ -274,6 +274,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _move: {x: 0, y: 0}
   touching: {fileID: 0}
-  gridDimensions: {x: 20, y: 10}
+  gridDimensions: {x: 18, y: 8}
   index: 0
   _spotlight: {fileID: 0}

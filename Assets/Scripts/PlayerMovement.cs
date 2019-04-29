@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
     public SMaskSpotlight _spotlight;
 
+    private GameObject ballBag;
+    public List<SpriteRenderer> discoBalls;
+
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
@@ -44,6 +47,13 @@ public class PlayerMovement : MonoBehaviour
         _LightTiles = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().LightTiles;
 
         _spotlight = transform.GetChild(0).GetComponentInChildren<SMaskSpotlight>();
+
+        ballBag = GameObject.FindGameObjectWithTag("BallBag");
+
+        for (int i = 0; i < ballBag.transform.childCount; i++)
+        {
+            discoBalls.Add(ballBag.transform.GetChild(i).GetComponent<SpriteRenderer>());
+        }
     }
 
     void Update()//GET INPUTS & APPLY 'ONE-TIME' PHYSICS
@@ -102,6 +112,28 @@ public class PlayerMovement : MonoBehaviour
             _isYAxisInUse = false;
         }
 
+        if (Mathf.Abs(_spotlight.addSize) <= 0.5f)
+        {
+            //foreach(SpriteRenderer SR in discoBalls)
+            //{
+            //    SR.enabled = true;
+            //}
+            for (int i = 0; i < discoBalls.Count; i++)
+            {
+                discoBalls[i].enabled = true;
+            }
+        }
+        else
+        {
+            //foreach (SpriteRenderer SR in discoBalls)
+            //{
+            //    SR.enabled = false;
+            //}
+            for (int i = 0; i < discoBalls.Count; i++)
+            {
+                discoBalls[i].enabled = false;
+            }
+        }
 
         //GET BUTTON DOWN
         if (Input.GetAxisRaw("Attack") != 0)

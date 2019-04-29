@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Tile
   - PlayerClone
+  - BallBag
   layers:
   - Default
   - TransparentFX

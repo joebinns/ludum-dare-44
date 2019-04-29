@@ -52,4 +52,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    private void reloadScene()
+    {
+
+    }
 }

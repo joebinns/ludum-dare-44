@@ -2,18 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SpawnEnemy : MonoBehaviour
 {
     //ENEMY SPAWNER
     public GameObject enemy;
     public bool stopSpawning = false;
-    public float spawnTime;
-    public float spawnDelay;
+
+    private float spawnTime;
+    private float spawnDelay;
+
+    int maxSpawn;
 
     int spawned;
 
     void Start()
     {
+        System.Random rnd = new System.Random();
+        maxSpawn = rnd.Next(1, 5);
+        spawnTime = rnd.Next(0, 5);
+        spawnDelay = rnd.Next(0, 5);
+
         //SPAWNING
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
     }
@@ -22,7 +31,9 @@ public class SpawnEnemy : MonoBehaviour
     {
         spawned++;
 
-        if(spawned >= 10)
+
+
+        if (spawned >= maxSpawn)
         {
             stopSpawning = true;
         }

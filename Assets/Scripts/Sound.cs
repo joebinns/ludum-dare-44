@@ -17,6 +17,10 @@ public class Sound
 
     public bool loop;
 
+    public bool isSong;
+
+    public int bpm;
+
     [HideInInspector]
     public AudioSource source;
 }

@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
 
         else if(collision.tag == "Enemy")
         {
-            Debug.Log("ouch");
-
             SceneManager.LoadScene("SampleScene");
         }
     }
@@ -29,6 +27,12 @@ public class PlayerController : MonoBehaviour
         {
             collision.GetComponentInChildren<SpriteMask>().enabled = true;
         }
+
+        else if (collision.tag == "Enemy")
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)

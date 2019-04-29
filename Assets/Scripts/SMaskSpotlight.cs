@@ -10,15 +10,16 @@ public class SMaskSpotlight : MonoBehaviour
 
     float flickTime;
 
+    private void Start()
+    {
+        float bpm = FindObjectOfType<AudioManager>().currentBpm;
+        calculateBeatFreq();
+    }
+
     private void calculateBeatFreq()
     {
         float bpm = 120f;
         flickTime = bpm / (60f * 4f);
-    }
-
-    private void Start()
-    {
-        calculateBeatFreq();
     }
 
     void Update()
