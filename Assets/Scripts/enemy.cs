@@ -25,23 +25,6 @@ public class enemy : MonoBehaviour
         _body = transform.GetComponent<Rigidbody2D>();
     }
 
-    //private void Update()
-    //{
-    //    var objects = GameObject.FindGameObjectsWithTag("Enemy");
-    //    var objectCount = objects.Length;
-
-    //    Debug.Log(objectCount);
-
-    //    if(objectCount <= 1)
-    //    {
-    //        lastEnemy = true;
-    //    }
-    //    else
-    //    {
-    //        lastEnemy = false;
-    //    }
-    //}
-
     void FixedUpdate()
     {
         move = (transform.position - Player.transform.position).normalized * speed * Time.deltaTime;
@@ -50,23 +33,6 @@ public class enemy : MonoBehaviour
 
     private void Die()
     {
-        var objects = GameObject.FindGameObjectsWithTag("Enemy");
-        var objectCount = objects.Length;
-
-        if (objectCount <= 1)
-        {
-            lastEnemy = true;
-        }
-        else
-        {
-            lastEnemy = false;
-        }
-
-        if (lastEnemy == true)
-        {
-            SceneManager.LoadScene("SampleScene");
-        }
-
         //get this game objects position, destroy this game object, instantiate player object at this position.
         Vector3 _position = transform.position;
 

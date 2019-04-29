@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject LightTile;
 
     public List<GameObject> LightTiles;
+
+    private float timeLeft = 3f;
 
     void Start()
     {
@@ -53,8 +56,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void reloadScene()
+    void Update()
     {
+        var objects = GameObject.FindGameObjectsWithTag("Enemy");
+        var objectCount = objects.Length;
 
+        if (objectCount == 0)
+        {
+            timeLeft -= Time.deltaTime;
+
+            if (timeLeft < 0)
+            {
+                SceneManager.LoadScene("SampleScene");
+            }
+        }
+
+        else
+        {
+            timeLeft = 3f;
+        }
     }
 }
