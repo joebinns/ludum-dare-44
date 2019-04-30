@@ -1,5 +1,6 @@
 # LudumDare44
 **Play at: https://j0bbee.itch.io/dare-to-dance**
+**View submission at: https://ldjam.com/events/ludum-dare/44/dare-to-dance**
 
 **Disclaimer: This game was conceptualised and made within 48 hours for Ludum Dare 44.**
 
@@ -26,4 +27,4 @@ https://freesound.org/people/Prof.Mudkip/sounds/386862/
 
 
 
-https://ldjam.com/events/ludum-dare/44/dare-to-dance
+
