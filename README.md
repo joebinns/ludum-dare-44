@@ -2,16 +2,19 @@
 **Play at: https://j0bbee.itch.io/dare-to-dance**
 **View submission at: https://ldjam.com/events/ludum-dare/44/dare-to-dance**
 
-**Disclaimer: This game was conceptualised and made within 48 hours for Ludum Dare 44.**
+_**Disclaimer: This game was conceptualised and made within 48 hours for Ludum Dare 44.**
 
-A Fast Paced Disco Themed Rhythm Game.
+A **Fast Paced** Disco Themed **Rhythm** Game.
+
 
 **Controls:**
 WASD / Arrow Keys = movement
 Press Spacebar at the Beat = attack in current direction of movement
 
+
 **Theme:**
 Your life is currency
+
 
 **Credits:**
 Programming & Art:
