@@ -1,4 +1,7 @@
 # LudumDare44
+
+As 48 hours rapidly ticked towards the final 10 minute mark, all hope of elegant code had gone out the window... Apologies for spaghetti code.
+
 **Play at: https://j0bbee.itch.io/dare-to-dance**  
 **View submission & reviews at: https://ldjam.com/events/ludum-dare/44/dare-to-dance**
 
