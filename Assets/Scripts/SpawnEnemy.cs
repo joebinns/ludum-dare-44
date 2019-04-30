@@ -19,9 +19,12 @@ public class SpawnEnemy : MonoBehaviour
     void Start()
     {
         System.Random rnd = new System.Random();
-        maxSpawn = rnd.Next(1, 5);
-        spawnTime = rnd.Next(0, 5);
+
+        maxSpawn = rnd.Next(1, 8);
+
         spawnDelay = rnd.Next(0, 5);
+
+        spawnTime = rnd.Next(0, 3);
 
         //SPAWNING
         InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
@@ -30,8 +33,6 @@ public class SpawnEnemy : MonoBehaviour
     public void SpawnObject()
     {
         spawned++;
-
-
 
         if (spawned >= maxSpawn)
         {
