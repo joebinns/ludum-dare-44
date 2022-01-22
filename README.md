@@ -1,35 +1,28 @@
-# LudumDare44
+[![itch.io](https://joebinns.com/documents/banners/dare_to_dance_spread.png)](https://j0bbee.itch.io/dare-to-dance "Dare to Dance. Click to play")
+
+# Dare to Dance
 
 As 48 hours rapidly ticked towards the final 10 minute mark, all hope of elegant code had gone out the window...
 
-**Play at: https://j0bbee.itch.io/dare-to-dance**  
-**View submission & reviews at: https://ldjam.com/events/ludum-dare/44/dare-to-dance**
+The floor's come alive with zombies. Dance on the beat to ignite their disco spirit.
 
-_**Disclaimer: This game was conceptualised and made within 48 hours for Ludum Dare 44.**_
+Dare to Dance is a Fast Paced Disco themed Rhythm Game.
 
-A **Fast Paced** Disco Themed **Rhythm** Game.
+This game was conceptualised and made in 48 hours for the Ludum Dare 44 game jam. The theme of the jam was 'your life is currency'.
 
+**Play at: [itch.io](https://j0bbee.itch.io/dare-to-dance).**  
+**View submission & reviews at: [ldjam](https://ldjam.com/events/ludum-dare/44/dare-to-dance).**
 
-**Controls:**
-WASD / Arrow Keys = movement
-Press Spacebar at the Beat = attack in current direction of movement
+## Credits
+### Programming & Art
+[Joe Binns](https://joebinns.com/).
 
+### Music
+Overcast, Ether Disco & Stringed Disco by [Kevin MacLeod](incompetech.com).<br/>
+Licensed under Creative Commons: By Attribution 3.0.
 
-**Theme:**
-Your life is currency
-
-
-**Credits:**
-Programming & Art:
-Joe Binns (@joebinns95, joebinns.95@gmail.com)
-
-Music:
-Overcast, Ether Disco & Stringed Disco by Kevin MacLeod (incompetech.com) 
-Licensed under Creative Commons: By Attribution 3.0
-http://creativecommons.org/licenses/by/3.0/
-
-Sound Effects:
-https://freesound.org/people/Prof.Mudkip/sounds/386862/
+### Sound Effects
+[freesound](https://freesound.org/people/Prof.Mudkip/sounds/386862/).
 
 
 
